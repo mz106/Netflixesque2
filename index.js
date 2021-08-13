@@ -49,8 +49,10 @@ const app = async () => {
     // console.log(process.env)
     if (argv.add) {
         await createMovie(argv.name, argv.year, argv.director); 
-    } else if (argv.delete) {
-        await deleteMovie(argv.name);
+    } else if (argv.find) {
+        await findMovie(argv.name);
+    } else if (argv.findall) {
+        await findAll();
     }
         
     process.exit();
@@ -62,12 +64,21 @@ const createMovie = async (name, year, director) => {
     console.log(newMovie)
   };
 
+
+const findMovie = async (name) => {
+    const movieFind = await Movie.find({name});
+    console.log(movieFind);
+}    
+
+const findAll = async () => {
+    const movieFindAll = await Movie.find({});
+    console.log(movieFindAll);
+}
+
 const deleteMovie = async (name) => {
     console.log('this is the delete function')
 }  
 
-// const findMovie = (name) => {
-//     const 
-// }  
+
 
 app();
