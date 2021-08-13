@@ -40,8 +40,6 @@ const Movie = mongoose.model(
 
 
 const app = async () => {     
-    console.log(argv)
-    // console.log(process.env)
     if (argv.add) {
         await createMovie(argv.name, argv.year, argv.director); 
     } else if (argv.find) {
@@ -52,6 +50,8 @@ const app = async () => {
         await findByYear(argv.year);
     } else if (argv.updatename) {
         await updateMovieName(argv.updatename, argv.newname);
+    } else if (argv.updateyear) {
+        await updateMovieYear(argv.name, argv.newyear);
     }
         
     process.exit();
@@ -59,8 +59,8 @@ const app = async () => {
 
 const createMovie = async (name, year, director) => {
     const newMovie = new Movie({name, year, director});
-    await newMovie.save()
-    console.log(newMovie)
+    await newMovie.save();
+    console.log(newMovie);
   };
 
 
@@ -82,6 +82,12 @@ const findByYear = async (year) => {
 const updateMovieName = async (updateName, newName) => {
     const movieUpdateName = await Movie.updateOne({name: updateName}, {$set:{name: newName}});
     console.log(movieUpdateName);    
+}
+
+const updateMovieYear = async (name, newYear) => {
+    const movieUpdateYear = await Movie.updateOne({name: name}, {$set:{year: newYear}});
+    console.log(movieUpdateYear);
+    console.log(await Movie.find({name: name}));
 }
 
 const deleteMovie = async (name) => {
