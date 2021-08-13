@@ -53,6 +53,8 @@ const app = async () => {
         await findMovie(argv.name);
     } else if (argv.findall) {
         await findAll();
+    } else if (argv.findyear) {
+        await findByYear(argv.year);
     }
         
     process.exit();
@@ -73,6 +75,11 @@ const findMovie = async (name) => {
 const findAll = async () => {
     const movieFindAll = await Movie.find({});
     console.log(movieFindAll);
+}
+
+const findByYear = async (year) => {
+    const movieFindYear = await Movie.find({year});
+    console.log(movieFindYear);
 }
 
 const deleteMovie = async (name) => {
