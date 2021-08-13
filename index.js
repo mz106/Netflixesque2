@@ -8,7 +8,6 @@ mongoose.connect(`mongodb://${process.env.DB_URL}:${process.env.DB_PORT}/${proce
     {useNewUrlParser: true, useUnifiedTopology: true},
 );
 
-
 const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 const argv = yargs(hideBin(process.argv)).argv;
@@ -19,11 +18,7 @@ const fs = require('fs')
 // const updateInput = process.argv[4];
 // const { createMovie, findMovie, updateMovie, deleteMovie } = require('./utils');
 // const { add } = require("../../netflix/utils");
-
-
-
-
-                                                                                                                                                                       
+                                                                                                                                                      
 const Movie = mongoose.model(
     "movies",
     {
@@ -55,6 +50,8 @@ const app = async () => {
         await findAll();
     } else if (argv.findyear) {
         await findByYear(argv.year);
+    } else if (argv.updatename) {
+        await updateMovieName(argv.updatename, argv.newname);
     }
         
     process.exit();
@@ -82,10 +79,13 @@ const findByYear = async (year) => {
     console.log(movieFindYear);
 }
 
+const updateMovieName = async (updateName, newName) => {
+    const movieUpdateName = await Movie.updateOne({name: updateName}, {$set:{name: newName}});
+    console.log(movieUpdateName);    
+}
+
 const deleteMovie = async (name) => {
     console.log('this is the delete function')
 }  
-
-
 
 app();
