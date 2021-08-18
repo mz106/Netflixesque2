@@ -1,5 +1,6 @@
 
 require("dotenv").config();
+// const { createMovie, findAll } = require("./utils");
 
 // docker run -rm --name my-mongo-db -dp 27017:27017 -v mongo-data:/data/db mongo"docker 
 const mongoose = require("mongoose");
@@ -105,3 +106,4 @@ const deleteMovieByName = async (name) => {
 }  
 
 app();
+

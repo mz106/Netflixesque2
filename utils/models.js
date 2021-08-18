@@ -6,14 +6,10 @@ mongoose.connect(`mongodb://${process.env.DB_URL}:${process.env.DB_PORT}/${proce
 );
 
 
-exports.movie = mongoose.model(
-    "Person",
+const Movie = mongoose.model(
+    "movies",
     {
-        id: {
-            type: Number,
-            required: true
-        },
-
+        
         name: {
             type: String,
             required: true
@@ -28,3 +24,7 @@ exports.movie = mongoose.model(
         }
     }
 );
+
+module.exports = {
+    Movie
+}
