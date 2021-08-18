@@ -1,7 +1,7 @@
 
 require("dotenv").config();
 
-// docker run -rm --name my-mongo-db -dp 27017:27017 -v mongo-data:data/db mongo"docker 
+// docker run -rm --name my-mongo-db -dp 27017:27017 -v mongo-data:/data/db mongo"docker 
 const mongoose = require("mongoose");
 
 mongoose.connect(`mongodb://${process.env.DB_URL}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
@@ -52,6 +52,10 @@ const app = async () => {
         await updateMovieName(argv.updatename, argv.newname);
     } else if (argv.updateyear) {
         await updateMovieYear(argv.name, argv.newyear);
+    } else if (argv.deleteone) {
+        await deleteMovieByName(argv.name)
+    } else if (argv.deleteall) {
+        await deleteAll();
     }
         
     process.exit();
@@ -90,8 +94,14 @@ const updateMovieYear = async (name, newYear) => {
     console.log(await Movie.find({name: name}));
 }
 
-const deleteMovie = async (name) => {
-    console.log('this is the delete function')
+const deleteAll = async () => {
+    await Movie.deleteMany({});
+    console.log('All entries have been deleted');
+}
+
+const deleteMovieByName = async (name) => {
+    await Movie.deleteOne({name: name});
+    console.log(`${name} has been removed`);
 }  
 
 app();
