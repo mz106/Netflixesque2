@@ -1,10 +1,4 @@
-// const fs = require("fs");
-// // const { movie } = require("./models.js")
 
-// exports.createMovie = (id, name, year, director) => {
-//   const movie = new movie({id: id, name: name, year: year, director: director});
-//   console.log(movie)
-// };
 
 const { Movie } = require("./models.js");
 
@@ -18,6 +12,11 @@ const findAll = async () => {
   const movieFindAll = await Movie.find({});
   console.log(movieFindAll);
 }
+
+const findMovie = async (name) => {
+    const movieFind = await Movie.find({name});
+    console.log(movieFind);
+} 
 
 const findByYear = async (year) => {
   const movieFindYear = await Movie.find({year});
@@ -48,6 +47,7 @@ const deleteMovieByName = async (name) => {
 module.exports = {
   createMovie,
   findAll,
+  findMovie,
   findByYear,
   updateMovieName,
   updateMovieYear,
