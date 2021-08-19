@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 const argv = yargs(hideBin(process.argv)).argv;
-const { createMovie, findAll, findMovie, findByYear,  updateMovieName, updateMovieYear, deleteAll, deleteMovieByName } = require('./utils');
+const { createMovie, findAll, findMovie, findByYear,  updateMovieName, updateMovieYear, updateMovieDirector, deleteAll, deleteMovieByName } = require('./utils');
 
 // mongoose.connect(`mongodb://${process.env.DB_URL}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
 //     {useNewUrlParser: true, useUnifiedTopology: true},
@@ -23,6 +23,8 @@ const app = async () => {
         await updateMovieName(argv.updatename, argv.newname);
     } else if (argv.updateyear) {
         await updateMovieYear(argv.name, argv.newyear);
+    } else if (argv.updatedirector) {
+        await updateMovieDirector(argv.name, argv.director);
     } else if (argv.delete) {
         await deleteMovieByName(argv.name)
     } else if (argv.deleteall) {
