@@ -1,19 +1,11 @@
 
 const mongoose = require("mongoose");
+const { mongoConnect } = require("./mongodb.js");
 
-mongoose.connect(`mongodb://${process.env.DB_URL}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
-    {useNewUrlParser: true, useUnifiedTopology: true},
-);
-
-
-exports.movie = mongoose.model(
-    "Person",
+const Movie = mongoose.model(
+    "movies",
     {
-        id: {
-            type: Number,
-            required: true
-        },
-
+        
         name: {
             type: String,
             required: true
@@ -28,3 +20,7 @@ exports.movie = mongoose.model(
         }
     }
 );
+
+module.exports = {
+    Movie
+}
