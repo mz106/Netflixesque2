@@ -23,7 +23,7 @@ const app = async () => {
         await updateMovieName(argv.updatename, argv.newname);
     } else if (argv.updateyear) {
         await updateMovieYear(argv.name, argv.newyear);
-    } else if (argv.deleteone) {
+    } else if (argv.delete) {
         await deleteMovieByName(argv.name)
     } else if (argv.deleteall) {
         await deleteAll();
