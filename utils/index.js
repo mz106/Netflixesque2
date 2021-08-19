@@ -1,6 +1,7 @@
 
 
 const { Movie } = require("./models.js");
+require('./mongodb.js')
 
 const createMovie = async (name, year, director) => {
     const newMovie = new Movie({name, year, director});
