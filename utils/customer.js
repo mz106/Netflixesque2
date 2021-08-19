@@ -10,6 +10,7 @@ const Customer = connection.define("Customer", {
 }, {});
 
 const main = async () => {
+    console.log("main app customer reached")
     try {
         await Customer.sync({alter: true});
     } catch(error) {
@@ -17,4 +18,6 @@ const main = async () => {
     }
 };
 
-module.exports = Customer;
+main();
+
+module.exports = {Customer};

@@ -1,7 +1,10 @@
 
 
 const { Movie } = require("./models.js");
-require('./mongodb.js')
+const { Customer } = require("./customer.js");
+require('./mongodb.js');
+
+//mongodb functions
 
 const createMovie = async (name, year, director) => {
     const newMovie = new Movie({name, year, director});
@@ -51,7 +54,10 @@ const deleteMovieByName = async (name) => {
   console.log(`${name} has been removed`);
 } 
 
+//mysql functions
+
 const addCustomer = async (id, name, movieId) => {
+  console.log('addCustomer reached start')
   const customer = Customer.build({
     id: id,
     name: name,
@@ -59,7 +65,8 @@ const addCustomer = async (id, name, movieId) => {
   });
 
   await customer.save();
-  console.log(customer)
+  console.log(`Added: ${customer.name}.`)
+  
 }
 
 module.exports = {
