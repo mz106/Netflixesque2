@@ -51,6 +51,17 @@ const deleteMovieByName = async (name) => {
   console.log(`${name} has been removed`);
 } 
 
+const addCustomer = async (id, name, movieId) => {
+  const customer = Customer.build({
+    id: id,
+    name: name,
+    movie_id: movieId
+  });
+
+  await customer.save();
+  console.log(customer)
+}
+
 module.exports = {
   createMovie,
   findAll,
@@ -60,5 +71,6 @@ module.exports = {
   updateMovieYear,
   updateMovieDirector,
   deleteAll,
-  deleteMovieByName
+  deleteMovieByName,
+  addCustomer
 }

@@ -4,13 +4,12 @@ const mongoose = require("mongoose");
 const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 const argv = yargs(hideBin(process.argv)).argv;
-const { createMovie, findAll, findMovie, findByYear,  updateMovieName, updateMovieYear, updateMovieDirector, deleteAll, deleteMovieByName } = require('./utils');
+const { createMovie, findAll, findMovie, findByYear,  updateMovieName, updateMovieYear, updateMovieDirector, deleteAll, deleteMovieByName, addCustomer } = require('./utils');
+const { connection } = require("./utils/mysql");
+const { Customer } = require("./utils/customer");
 
-// mongoose.connect(`mongodb://${process.env.DB_URL}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
-//     {useNewUrlParser: true, useUnifiedTopology: true},
-// );
                                                                                                                                                       
-const app = async () => {     
+const mongoApp = async () => {     
     if (argv.add) {
         await createMovie(argv.name, argv.year, argv.director); 
     } else if (argv.find) {
@@ -34,5 +33,20 @@ const app = async () => {
     process.exit();
 } 
 
-app();
+const sqlApp = async () => {
+    try {
+        await connection.authenticate();
+
+        if (argv.addcust) {
+            addCustomer(argv.id, argv.name, argv.movieid); 
+        }
+
+        process.exit();
+
+    } catch (error) {
+        console.log(`Connection has not been established: ${error}`);
+    }
+};
+
+mongoApp();
 
