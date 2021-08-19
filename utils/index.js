@@ -35,6 +35,12 @@ const updateMovieYear = async (name, newYear) => {
   console.log(await Movie.find({name: name}));
 }
 
+const updateMovieDirector = async (name, newDirector) => {
+  const movieUpdateDirector = await Movie.updateOne({name: name}, {$set:{director: newDirector}});
+  console.log(movieUpdateDirector);
+  console.log(await Movie.find({name: name}));
+}
+
 const deleteAll = async () => {
   await Movie.deleteMany({});
   console.log('All entries have been deleted');
@@ -52,6 +58,7 @@ module.exports = {
   findByYear,
   updateMovieName,
   updateMovieYear,
+  updateMovieDirector,
   deleteAll,
   deleteMovieByName
 }
