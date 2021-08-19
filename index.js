@@ -1,4 +1,4 @@
-// docker run -rm --name my-mongo-db -dp 27017:27017 -v mongo-data:/data/db mongo"docker 
+// docker run -rm --name my-mongo-db -dp 27017:27017 -v mongo-data:/data/db mongo
 require("dotenv").config();
 const mongoose = require("mongoose");
 const yargs = require("yargs/yargs");
