@@ -32,30 +32,30 @@ const mongoApp = async () => {
     process.exit();
 } 
 
-const sqlApp = async () => {
-    console.log("sqlApp start reached");
-    try {
-        await connection.authenticate();
-        console.log("connection established")
-        if (argv.addcust) {
-            await addCustomer(argv.name, argv.movieid); 
-            console.log('add cust reached')
-            // const { _, addcust, ...options } = {...argv};
-            // console.log(`the options were ${options.value}`);
-            // delete options['$0'];
+// const sqlApp = async () => {
+//     console.log("sqlApp start reached");
+//     try {
+//         await connection.authenticate();
+//         console.log("connection established")
+//         if (argv.addcust) {
+//             await addCustomer(argv.name, argv.movieid); 
+//             console.log('add cust reached')
+//             // const { _, addcust, ...options } = {...argv};
+//             // console.log(`the options were ${options.value}`);
+//             // delete options['$0'];
 
-            // await addCustomer(argv.id, argv.name, argv.movieid)
-        }
+//             // await addCustomer(argv.id, argv.name, argv.movieid)
+//         }
 
-        process.exit();
+//         process.exit();
 
-    } catch (error) {
-        console.log(`Connection has not been established: ${error}`);
-    }
-};
+//     } catch (error) {
+//         console.log(`Connection has not been established: ${error}`);
+//     }
+// };
 
-// mongoApp();
-sqlApp();
+mongoApp();
+// sqlApp();
 
 // const { _, add, ...options } = {...argv};
 //             delete options['$0'];
@@ -64,3 +64,5 @@ sqlApp();
 
 // docker run --rm --name master26-mysql -dp 3306:3306 -v mysql-data-master26:/var/lib/mysql 
 // -v mysql-config-master26:/etc mysql/mysql-server:latest
+
+//hello dave
