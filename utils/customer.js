@@ -3,7 +3,6 @@ const { DataTypes } = require('sequelize');
 const { connection } = require('./mysql');
 
 const Customer = connection.define("Customer", {
-    // id: {type: DataTypes.INTEGER, allowNull: false, primaryKey: true},
     name: {type: DataTypes.STRING},
     movie_id: {type: DataTypes.STRING},
     

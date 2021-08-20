@@ -68,6 +68,15 @@ const addCustomer = async (name, movieId) => {
   
 }
 
+const updateCustomer = async (name, newName) => {
+  const customer = await Customer.update(
+    {name: newName},
+    {where: {name: name}}
+  );
+
+  console.log(`Updated ${name} to ${newName}`)
+}
+
 module.exports = {
   createMovie,
   findAll,
@@ -78,5 +87,6 @@ module.exports = {
   updateMovieDirector,
   deleteAll,
   deleteMovieByName,
-  addCustomer
+  addCustomer,
+  updateCustomer
 }

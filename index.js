@@ -1,10 +1,10 @@
-// docker run -rm --name my-mongo-db -dp 27017:27017 -v mongo-data:/data/db mongo
+
 require("dotenv").config();
 const mongoose = require("mongoose");
 const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 const argv = yargs(hideBin(process.argv)).argv;
-const { createMovie, findAll, findMovie, findByYear,  updateMovieName, updateMovieYear, updateMovieDirector, deleteAll, deleteMovieByName, addCustomer } = require('./utils');
+const { createMovie, findAll, findMovie, findByYear,  updateMovieName, updateMovieYear, updateMovieDirector, deleteAll, deleteMovieByName, addCustomer, updateCustomer } = require('./utils');
 const { connection } = require("./utils/mysql.js");
 
                                                                                                                                                       
@@ -32,37 +32,29 @@ const mongoApp = async () => {
     process.exit();
 } 
 
-// const sqlApp = async () => {
-//     console.log("sqlApp start reached");
-//     try {
-//         await connection.authenticate();
-//         console.log("connection established")
-//         if (argv.addcust) {
-//             await addCustomer(argv.name, argv.movieid); 
-//             console.log('add cust reached')
-//             // const { _, addcust, ...options } = {...argv};
-//             // console.log(`the options were ${options.value}`);
-//             // delete options['$0'];
+const sqlApp = async () => {
+    console.log("sqlApp start reached");
+    try {
+        await connection.authenticate();
+        console.log("connection established")
+        if (argv.addcust) {
+            await addCustomer(argv.name, argv.movieid); 
+            console.log('add cust reached')
+        }
+        if (argv.update) {
+            await updateCustomer(argv.name, argv.newname);
+            console.log(`Updated ${argv.name}`)
+        }
 
-//             // await addCustomer(argv.id, argv.name, argv.movieid)
-//         }
+        process.exit();
 
-//         process.exit();
+    } catch (error) {
+        console.log(`Connection has not been established: ${error}`);
+    }
+};
 
-//     } catch (error) {
-//         console.log(`Connection has not been established: ${error}`);
-//     }
-// };
-
-mongoApp();
-// sqlApp();
-
-// const { _, add, ...options } = {...argv};
-//             delete options['$0'];
-//             console.log(options);
+// mongoApp();
+sqlApp();
 
 
-// docker run --rm --name master26-mysql -dp 3306:3306 -v mysql-data-master26:/var/lib/mysql 
-// -v mysql-config-master26:/etc mysql/mysql-server:latest
 
-//hello dave
