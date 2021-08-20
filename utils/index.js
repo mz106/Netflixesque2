@@ -87,6 +87,14 @@ const findCustomer = async (name) => {
   }
 }
 
+const deleteCustomer = async (name) => {
+  const customer = await Customer.destroy(
+    {where: {name}}
+  );
+
+  console.log(`Customer ${name} removed from database`);
+}
+
 module.exports = {
   createMovie,
   findAll,
@@ -99,5 +107,6 @@ module.exports = {
   deleteMovieByName,
   addCustomer,
   updateCustomer,
-  findCustomer
+  findCustomer,
+  deleteCustomer
 }

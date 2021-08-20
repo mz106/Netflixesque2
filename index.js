@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 const argv = yargs(hideBin(process.argv)).argv;
-const { createMovie, findAll, findMovie, findByYear,  updateMovieName, updateMovieYear, updateMovieDirector, deleteAll, deleteMovieByName, addCustomer, updateCustomer, findCustomer } = require('./utils');
+const { createMovie, findAll, findMovie, findByYear,  updateMovieName, updateMovieYear, updateMovieDirector, deleteAll, deleteMovieByName, addCustomer, updateCustomer, findCustomer, deleteCustomer } = require('./utils');
 const { connection } = require("./utils/mysql.js");
 
                                                                                                                                                       
@@ -41,12 +41,15 @@ const sqlApp = async () => {
             await addCustomer(argv.name, argv.movieid); 
             console.log('add cust reached')
         }
-        if (argv.update) {
+        else if (argv.update) {
             await updateCustomer(argv.name, argv.newname);
             console.log(`Updated ${argv.name}`)
         }
-        if (argv.find) {
+        else if (argv.find) {
             await findCustomer(argv.name);
+        }
+        else if (argv.deletecustomer) {
+            await deleteCustomer(argv.name);
         }
 
         process.exit();
