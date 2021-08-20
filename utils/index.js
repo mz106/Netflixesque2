@@ -77,6 +77,16 @@ const updateCustomer = async (name, newName) => {
   console.log(`Updated ${name} to ${newName}`)
 }
 
+const findCustomer = async (name) => {
+  const customer = await Customer.findAll(
+    {where: {name: name}}
+  );
+
+  for (let cust of customer) {
+    console.log(`Customer: ${cust.name}`)
+  }
+}
+
 module.exports = {
   createMovie,
   findAll,
@@ -88,5 +98,6 @@ module.exports = {
   deleteAll,
   deleteMovieByName,
   addCustomer,
-  updateCustomer
+  updateCustomer,
+  findCustomer
 }
