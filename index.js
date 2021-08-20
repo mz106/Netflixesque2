@@ -6,8 +6,6 @@ const { hideBin } = require("yargs/helpers");
 const argv = yargs(hideBin(process.argv)).argv;
 const { createMovie, findAll, findMovie, findByYear,  updateMovieName, updateMovieYear, updateMovieDirector, deleteAll, deleteMovieByName, addCustomer } = require('./utils');
 const { connection } = require("./utils/mysql.js");
-const { Customer } = require("./utils/customer");
-const { Sequelize } = require("sequelize");
 
                                                                                                                                                       
 const mongoApp = async () => {     
@@ -40,13 +38,13 @@ const sqlApp = async () => {
         await connection.authenticate();
         console.log("connection established")
         if (argv.addcust) {
-            // addCustomer(argv.id, argv.name, argv.movieid); 
-            // console.log('add cust reached')
-            const { _, addcust, ...options } = {...argv};
-            console.log(`the options were ${options.value}`);
-            delete options['$0'];
+            await addCustomer(argv.name, argv.movieid); 
+            console.log('add cust reached')
+            // const { _, addcust, ...options } = {...argv};
+            // console.log(`the options were ${options.value}`);
+            // delete options['$0'];
 
-            await addCustomer(argv.id, argv.name, argv.movieid)
+            // await addCustomer(argv.id, argv.name, argv.movieid)
         }
 
         process.exit();
@@ -63,3 +61,6 @@ sqlApp();
 //             delete options['$0'];
 //             console.log(options);
 
+
+// docker run --rm --name master26-mysql -dp 3306:3306 -v mysql-data-master26:/var/lib/mysql 
+// -v mysql-config-master26:/etc mysql/mysql-server:latest

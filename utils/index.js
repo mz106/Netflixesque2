@@ -56,10 +56,9 @@ const deleteMovieByName = async (name) => {
 
 //mysql functions
 
-const addCustomer = async (id, name, movieId) => {
+const addCustomer = async (name, movieId) => {
   console.log('addCustomer reached start')
   const customer = Customer.build({
-    id: id,
     name: name,
     movie_id: movieId
   });
