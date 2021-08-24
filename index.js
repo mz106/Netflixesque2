@@ -1,16 +1,14 @@
-// docker run -rm --name my-mongo-db -dp 27017:27017 -v mongo-data:/data/db mongo
+
 require("dotenv").config();
 const mongoose = require("mongoose");
 const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 const argv = yargs(hideBin(process.argv)).argv;
-const { createMovie, findAll, findMovie, findByYear,  updateMovieName, updateMovieYear, updateMovieDirector, deleteAll, deleteMovieByName } = require('./utils');
+const { createMovie, findAll, findMovie, findByYear,  updateMovieName, updateMovieYear, updateMovieDirector, deleteAll, deleteMovieByName, addCustomer, updateCustomer, findCustomer, deleteCustomer } = require('./utils');
+const { connection } = require("./utils/mysql.js");
 
-// mongoose.connect(`mongodb://${process.env.DB_URL}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
-//     {useNewUrlParser: true, useUnifiedTopology: true},
-// );
                                                                                                                                                       
-const app = async () => {     
+const mongoApp = async () => {     
     if (argv.add) {
         await createMovie(argv.name, argv.year, argv.director); 
     } else if (argv.find) {
@@ -34,5 +32,35 @@ const app = async () => {
     process.exit();
 } 
 
-app();
+const sqlApp = async () => {
+    console.log("sqlApp start reached");
+    try {
+        await connection.authenticate();
+        console.log("connection established")
+        if (argv.addcust) {
+            await addCustomer(argv.name, argv.movieid); 
+            console.log('add cust reached')
+        }
+        else if (argv.update) {
+            await updateCustomer(argv.name, argv.newname);
+            console.log(`Updated ${argv.name}`)
+        }
+        else if (argv.find) {
+            await findCustomer(argv.name);
+        }
+        else if (argv.deletecustomer) {
+            await deleteCustomer(argv.name);
+        }
+
+        process.exit();
+
+    } catch (error) {
+        console.log(`Connection has not been established: ${error}`);
+    }
+};
+
+// mongoApp();
+sqlApp();
+
+
 
