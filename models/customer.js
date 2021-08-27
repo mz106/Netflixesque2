@@ -1,6 +1,5 @@
 
 const { DataTypes } = require('sequelize');
-const { connection } = require('./mysql');
 
 const Customer = connection.define("Customer", {
     name: {type: DataTypes.STRING},

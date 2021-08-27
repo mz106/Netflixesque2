@@ -14,7 +14,7 @@ router.post("/login", (req, res) => {
 });
 
 // profile user
-router.post("/profile", (req, res) => {
+router.get("/profile", (req, res) => {
     res.status(200).send("the user login route is working");
 });
 
