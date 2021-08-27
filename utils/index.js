@@ -1,7 +1,7 @@
 
 
 const { Movie } = require("./models.js");
-const { Customer } = require("./customer.js");
+const { Customer } = require("../models/customer.js");
 require('./mongodb.js');
 
 //mongodb functions

@@ -1,66 +1,9 @@
 
 require("dotenv").config();
-const mongoose = require("mongoose");
-const yargs = require("yargs/yargs");
-const { hideBin } = require("yargs/helpers");
-const argv = yargs(hideBin(process.argv)).argv;
-const { createMovie, findAll, findMovie, findByYear,  updateMovieName, updateMovieYear, updateMovieDirector, deleteAll, deleteMovieByName, addCustomer, updateCustomer, findCustomer, deleteCustomer } = require('./utils');
 const { connection } = require("./db");
 
                                                                                                                                                       
-const mongoApp = async () => {     
-    if (argv.add) {
-        await createMovie(argv.name, argv.year, argv.director); 
-    } else if (argv.find) {
-        await findMovie(argv.name);
-    } else if (argv.findall) {
-        await findAll();
-    } else if (argv.findyear) {
-        await findByYear(argv.year);
-    } else if (argv.updatename) {
-        await updateMovieName(argv.updatename, argv.newname);
-    } else if (argv.updateyear) {
-        await updateMovieYear(argv.name, argv.newyear);
-    } else if (argv.updatedirector) {
-        await updateMovieDirector(argv.name, argv.director);
-    } else if (argv.delete) {
-        await deleteMovieByName(argv.name)
-    } else if (argv.deleteall) {
-        await deleteAll();
-    }
-        
-    process.exit();
-} 
 
-const sqlApp = async () => {
-    console.log("sqlApp start reached");
-    try {
-        await connection.authenticate();
-        console.log("connection established")
-        if (argv.addcust) {
-            await addCustomer(argv.name, argv.movieid); 
-            console.log('add cust reached')
-        }
-        else if (argv.update) {
-            await updateCustomer(argv.name, argv.newname);
-            console.log(`Updated ${argv.name}`)
-        }
-        else if (argv.find) {
-            await findCustomer(argv.name);
-        }
-        else if (argv.deletecustomer) {
-            await deleteCustomer(argv.name);
-        }
-
-        process.exit();
-
-    } catch (error) {
-        console.log(`Connection has not been established: ${error}`);
-    }
-};
-
-// mongoApp();
-sqlApp();
 
 
 
