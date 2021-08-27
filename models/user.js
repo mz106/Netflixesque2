@@ -1,7 +1,7 @@
 
 const { DataTypes } = require('sequelize');
 
-const Customer = connection.define("Customer", {
+const User = connection.define("User", {
     name: {type: DataTypes.STRING},
     movie_id: {type: DataTypes.STRING},
     
@@ -10,7 +10,7 @@ const Customer = connection.define("Customer", {
 const main = async () => {
     console.log("main app customer reached")
     try {
-        await Customer.sync({alter: true});
+        await User.sync({alter: true});
     } catch(error) {
         console.log(error);
     }
@@ -18,4 +18,4 @@ const main = async () => {
 
 main();
 
-module.exports = {Customer};
+module.exports = User;

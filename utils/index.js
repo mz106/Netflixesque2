@@ -1,7 +1,7 @@
 
 
 const { Movie } = require("./models.js");
-const { Customer } = require("../models/customer.js");
+const { User } = require("../models/user.js");
 require('./mongodb.js');
 
 //mongodb functions
@@ -57,19 +57,19 @@ const deleteMovieByName = async (name) => {
 //mysql functions
 
 const addCustomer = async (name, movieId) => {
-  console.log('addCustomer reached start')
-  const customer = Customer.build({
+  console.log('addCUser reached start')
+  const user = User.build({
     name: name,
     movie_id: movieId
   });
 
-  await customer.save();
-  console.log(`Added: ${customer.name}.`)
+  await user.save();
+  console.log(`Added: ${user.name}.`)
   
 }
 
-const updateCustomer = async (name, newName) => {
-  const customer = await Customer.update(
+const updateUser = async (name, newName) => {
+  const User = await User.update(
     {name: newName},
     {where: {name: name}}
   );
@@ -77,22 +77,22 @@ const updateCustomer = async (name, newName) => {
   console.log(`Updated ${name} to ${newName}`)
 }
 
-const findCustomer = async (name) => {
-  const customer = await Customer.findAll(
+const findUser = async (name) => {
+  const user = await User.findAll(
     {where: {name: name}}
   );
 
-  for (let cust of customer) {
-    console.log(`Customer: ${cust.name}`)
+  for (let u of user) {
+    console.log(`User: ${u.name}`)
   }
 }
 
-const deleteCustomer = async (name) => {
-  const customer = await Customer.destroy(
+const deleteUser = async (name) => {
+  const user = await User.destroy(
     {where: {name}}
   );
 
-  console.log(`Customer ${name} removed from database`);
+  console.log(`User ${name} removed from database`);
 }
 
 module.exports = {
@@ -106,7 +106,7 @@ module.exports = {
   deleteAll,
   deleteMovieByName,
   addCustomer,
-  updateCustomer,
-  findCustomer,
-  deleteCustomer
+  updateUser,
+  findUser,
+  deleteUser
 }
