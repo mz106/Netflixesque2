@@ -5,7 +5,7 @@ const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 const argv = yargs(hideBin(process.argv)).argv;
 const { createMovie, findAll, findMovie, findByYear,  updateMovieName, updateMovieYear, updateMovieDirector, deleteAll, deleteMovieByName, addCustomer, updateCustomer, findCustomer, deleteCustomer } = require('./utils');
-const { connection } = require("./utils/mysql.js");
+const { connection } = require("./db");
 
                                                                                                                                                       
 const mongoApp = async () => {     

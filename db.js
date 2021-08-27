@@ -1,6 +1,4 @@
 
-//Establish the mysql db connection
-
 const { Sequelize } = require("sequelize");
 
 const connection = new Sequelize(process.env.DB_NAME_MYSQL, process.env.DB_USER_MYSQL, process.env.DB_PASSWORD_MYSQL, {
