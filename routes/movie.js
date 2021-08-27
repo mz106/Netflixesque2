@@ -14,9 +14,4 @@ router.get("/:name", (req, res) => {
 });
 
 
-//get year movies
-router.get("/:year", (req, res) => {
-    res.send(200).send("year route working");
-});
-
 module.exports = router;
