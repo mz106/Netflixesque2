@@ -1,66 +1,34 @@
-
+//dependencies
 require("dotenv").config();
-const mongoose = require("mongoose");
-const yargs = require("yargs/yargs");
-const { hideBin } = require("yargs/helpers");
-const argv = yargs(hideBin(process.argv)).argv;
-const { createMovie, findAll, findMovie, findByYear,  updateMovieName, updateMovieYear, updateMovieDirector, deleteAll, deleteMovieByName, addCustomer, updateCustomer, findCustomer, deleteCustomer } = require('./utils');
+const express = require("express");
+
+// connections
 const { connection } = require("./db");
+const app = express();
+const port = process.env.PORT;
 
+//routes
+const errorRouter = require("./routes/error");
+const userRouter = require("./routes/user");
+const movieRouter = require("./routes/movie");
+const directorRouter = require("./routes/director");
+const yearRouter = require("./routes/year");
+
+app.use(express.json());
+
+app.use("/user", userRouter);
+app.use("/movie", movieRouter);
+app.use("/director", directorRouter);
+app.use("/year", yearRouter);
+app.use("*", errorRouter);
+
+
+app.listen(port || 5000, async () => {
+    connection.authenticate();
+    console.log("app is listening")
+});
                                                                                                                                                       
-const mongoApp = async () => {     
-    if (argv.add) {
-        await createMovie(argv.name, argv.year, argv.director); 
-    } else if (argv.find) {
-        await findMovie(argv.name);
-    } else if (argv.findall) {
-        await findAll();
-    } else if (argv.findyear) {
-        await findByYear(argv.year);
-    } else if (argv.updatename) {
-        await updateMovieName(argv.updatename, argv.newname);
-    } else if (argv.updateyear) {
-        await updateMovieYear(argv.name, argv.newyear);
-    } else if (argv.updatedirector) {
-        await updateMovieDirector(argv.name, argv.director);
-    } else if (argv.delete) {
-        await deleteMovieByName(argv.name)
-    } else if (argv.deleteall) {
-        await deleteAll();
-    }
-        
-    process.exit();
-} 
 
-const sqlApp = async () => {
-    console.log("sqlApp start reached");
-    try {
-        await connection.authenticate();
-        console.log("connection established")
-        if (argv.addcust) {
-            await addCustomer(argv.name, argv.movieid); 
-            console.log('add cust reached')
-        }
-        else if (argv.update) {
-            await updateCustomer(argv.name, argv.newname);
-            console.log(`Updated ${argv.name}`)
-        }
-        else if (argv.find) {
-            await findCustomer(argv.name);
-        }
-        else if (argv.deletecustomer) {
-            await deleteCustomer(argv.name);
-        }
-
-        process.exit();
-
-    } catch (error) {
-        console.log(`Connection has not been established: ${error}`);
-    }
-};
-
-// mongoApp();
-sqlApp();
 
 
 
