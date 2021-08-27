@@ -1,10 +1,9 @@
 
 const { DataTypes } = require('sequelize');
+const { connection } = require("../db");
 
-const User = connection.define("User", {
-    name: {type: DataTypes.STRING},
-    movie_id: {type: DataTypes.STRING},
-    
+const User = connection.define("User", console.log("user model reached"), {
+    name: {type: DataTypes.STRING}
 }, {});
 
 const main = async () => {
@@ -18,4 +17,6 @@ const main = async () => {
 
 main();
 
-module.exports = User;
+module.exports = {
+    User
+};

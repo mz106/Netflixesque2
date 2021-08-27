@@ -1,66 +1,31 @@
 
 
-const { Movie } = require("./models.js");
+const { Movie } = require("../models/movie.js");
 const { User } = require("../models/user.js");
-require('./mongodb.js');
 
-//mongodb functions
+const { DataTypes } = require("sequelize");
+const { connection } = require("../db");
 
-const createMovie = async (name, year, director) => {
-    const newMovie = new Movie({name, year, director});
-    await newMovie.save();
-    console.log(newMovie);
-  };
+const { Sequelize } = require("sequelize");
 
-const findAll = async () => {
-  const movieFindAll = await Movie.find({});
-  console.log(movieFindAll);
-}
+//mysql movie functions
 
-const findMovie = async (name) => {
-    const movieFind = await Movie.find({name});
-    console.log(movieFind);
-} 
+const addMovie = async (name, year, director) => {
+  const movie = Movie.build({
+    name: name, 
+    year: year,
+    director: director
+  });
+  await movie.save();
+};
 
-const findByYear = async (year) => {
-  const movieFindYear = await Movie.find({year});
-  console.log(movieFindYear);
-}
 
-const updateMovieName = async (updateName, newName) => {
-  const movieUpdateName = await Movie.updateOne({name: updateName}, {$set:{name: newName}});
-  console.log(movieUpdateName);    
-}
+//mysql user functions
 
-const updateMovieYear = async (name, newYear) => {
-  const movieUpdateYear = await Movie.updateOne({name: name}, {$set:{year: newYear}});
-  console.log(movieUpdateYear);
-  console.log(await Movie.find({name: name}));
-}
-
-const updateMovieDirector = async (name, newDirector) => {
-  const movieUpdateDirector = await Movie.updateOne({name: name}, {$set:{director: newDirector}});
-  console.log(movieUpdateDirector);
-  console.log(await Movie.find({name: name}));
-}
-
-const deleteAll = async () => {
-  await Movie.deleteMany({});
-  console.log('All entries have been deleted');
-}
-
-const deleteMovieByName = async (name) => {
-  await Movie.deleteOne({name: name});
-  console.log(`${name} has been removed`);
-} 
-
-//mysql functions
-
-const addCustomer = async (name, movieId) => {
-  console.log('addCUser reached start')
+const addUser = async (name) => {
+  console.log('addUser reached start')
   const user = User.build({
-    name: name,
-    movie_id: movieId
+    name: name
   });
 
   await user.save();
@@ -96,16 +61,8 @@ const deleteUser = async (name) => {
 }
 
 module.exports = {
-  createMovie,
-  findAll,
-  findMovie,
-  findByYear,
-  updateMovieName,
-  updateMovieYear,
-  updateMovieDirector,
-  deleteAll,
-  deleteMovieByName,
-  addCustomer,
+  addMovie,
+  addUser,
   updateUser,
   findUser,
   deleteUser

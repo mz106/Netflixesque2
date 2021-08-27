@@ -1,12 +1,22 @@
 
 const express = require("express");
 
+const { addUser } = require("../utils/index");
+
 const router = express.Router();
 
+const addUserRouter = async (req, res, next) => {
+    try {
+        res.status(201).json({name: req.body.name});
+        console.log(req.body.name)
+        addUser(req.body.name, req.body.year, req.body.director);
+    } catch (error) {
+        return next(error);
+    }
+}; 
+
 // register user
-router.post("/register", (req, res) => {
-    res.status(201).send("the user register route is working");
-});
+router.post("/register", addUserRouter);
 
 // login user
 router.post("/login", (req, res) => {
