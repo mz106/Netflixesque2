@@ -8,11 +8,13 @@ const port = process.env.PORT;
 const errorRouter = require("./routes/error");
 const userRouter = require("./routes/user");
 const movieRouter = require("./routes/movie");
+const directorRouter = require("./routes/director");
 
 app.use(express.json());
 
 app.use("/user", userRouter);
 app.use("/movie", movieRouter);
+app.use("/director", directorRouter);
 app.use("*", errorRouter);
 
 
